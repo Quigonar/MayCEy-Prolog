@@ -42,7 +42,7 @@ sintagma_verbal(S0,S):-verbo_infinitivo(S0,S1),complemento_directo(S1,S2),sintag
 
 % PALABRAS CLAVES
 palabras_clave(S0,S):-saludo(S0,S).
-palabras_clave(S0,S):-saludo(S0,S1),maycey(S1,S).
+palabras_clave(S0,S):-saludo(S0,S1), maycey(S1,S).
 palabras_clave(S0,S):-despedida(S0,S).
 palabras_clave(S0,S):-agradecimiento(S0,S).
 palabras_clave(S0,S):-solicitud_emergencia(S0,S).
@@ -124,6 +124,7 @@ verbo_infinitivo(['despegar'|S],S).
 verbo_infinitivo(['aterrizar'|S],S).
 verbo_infinitivo(['llegar'|S],S).
 verbo_infinitivo(['solicitar'|S],S).
+verbo_infinitivo(['cerrar'|S],S).
 
 
 % POSIBLES VERBOS TRANSITIVOS O CONJUGADOS UTILIZADOS EN UNA ORACION

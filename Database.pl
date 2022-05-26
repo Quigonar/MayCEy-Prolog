@@ -4,9 +4,9 @@
 :- dynamic vuelosP3/2.
 
 % tipos de emergencias
-emergencia('perdida de motor').
-emergencia('parto en medio vuelo').
-emergencia('paro cardiaco de pasajero').
+emergencia('perdida').
+emergencia('parto').
+emergencia('paro').
 emergencia('secuestro').
 
 % tipos de aeronaves
@@ -102,6 +102,18 @@ hora('21:00').
 hora('22:00').
 hora('23:00').
 
+horas_posibles(['0:00','1:00','2:00','3:00','4:00','5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00']).
+
+despedidaB('adios').
+despedidaB('chao').
+despedidaB('hasta').
+despedidaB('cambio').
+
+agradecimientoB('gracias').
+agradecimientoB('muchas').
+
+cierre('cerrar').
+
 % respuesta de saludo
 resp_saludo():- nl, write('Hola ¿en que lo puedo ayudar?').
 
@@ -117,8 +129,14 @@ resp_aeronave():- nl, write('Me indica el tipo de aeronave por favor.').
 % respuesta hora salida
 resp_hora():- nl, write('Me indica la hora de salida por favor.').
 
+% respuesta hora llegada
+resp_hora2():- nl, write('Me indica la hora de llegada por favor.').
+
 % respuesta direccion salida
 resp_direccion():- nl, write('Me indica la direccion de salida por favor.').
+
+% respuesta direccion llegada
+resp_direccion2():- nl, write('Me indica la direccion de llegada por favor.').
 
 % respuesta aterrizaje
 resp_aterrizaje():- nl, write('Me indica la velocidad, distancia a la pista y direccion por favor.').
@@ -127,4 +145,4 @@ resp_aterrizaje():- nl, write('Me indica la velocidad, distancia a la pista y di
 resp_solicitud_emergencia():- nl, write('Buenas, por favor indique su emergencia.').
 
 % respuesta de agradecimiento
-resp_agradecimiento():- nl, write('Con mucho gusto.').
+resp_agradecimiento():- write('Con mucho gusto.').
