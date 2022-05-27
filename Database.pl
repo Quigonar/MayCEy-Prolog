@@ -32,17 +32,21 @@ pista('P2-1').
 pista('P2-2').
 pista('P3').
 
+%saludos
 saludoB('hola').
 saludoB('buenas').
 saludoB('buenos').
 
+%solictudes de emergencias
 solicitud_emergenciaB('mayday').
 solicitud_emergenciaB('emergencia').
 solicitud_emergenciaB('7500').
 
+%solicitudes
 aterrizar('aterrizar').
 despegar('despegar').
 
+%matriculas 
 matriculaB('alpha').
 matriculaB('bravo'). 
 matriculaB('charlie').
@@ -70,8 +74,8 @@ matriculaB('xray').
 matriculaB('yankee').
 matriculaB('zulu').
 
-lista('hola').
 
+%horas disponibles
 hora('0:00').
 hora('1:00').
 hora('2:00').
@@ -97,16 +101,20 @@ hora('21:00').
 hora('22:00').
 hora('23:00').
 
+%lista de horas
 horas_posibles(['0:00','1:00','2:00','3:00','4:00','5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00']).
 
+%despedidas
 despedidaB('adios').
 despedidaB('chao').
 despedidaB('hasta').
 despedidaB('cambio').
 
+%agradecimientos
 agradecimientoB('gracias').
 agradecimientoB('muchas').
 
+%palabra de cierre
 cierre('cerrar').
 
 % respuesta de saludo
