@@ -76,17 +76,14 @@ es_hora(Lista,Variable,Y,Matricula,Pista,Hora):-not(length(Lista,0)), eliminar_e
 es_hora([],Variable,Y,Matricula,Pista,Hora):-write('No indico la hora correctamente'), nl, cuarta_entrada_S(X,Y,Matricula,Pista).
 
 % REVISA LA DIRECCION DE SALIDA O LLEGADA
-revisar_direccion(X,Y,L,T,W):-primer_elemento(X,Z), es_direccion(X,Z,Y,Matricula,Pista,Hora).
+revisar_direccion(X,Y,L,T,W):-primer_elemento(X,Z), es_direccion(X,Z,Y,L,T,W).
 
-es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Variable=='este', Y==1, Pista=='P2', asignar_pista(Matricula,'P2-1',Hora,Y),!.
-es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Variable=='oeste', Y==1, Pista=='P2', asignar_pista(Matricula,'P2-2',Hora,Y),!.
-es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Y==1, Pista=='P1', asignar_pista(Matricula,'P1',Hora,Y,Y),!.
-es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Y==1, Pista=='P3', asignar_pista(Matricula,'P3',Hora,Y),!.
-es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Variable=='este', Y==2, asignar_pista(Matricula,'P2-1',Hora,Y),!.
-es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Variable=='oeste', Y==2, asignar_pista(Matricula,'P2-1',Hora,Y),!.
-es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-not(length(Lista,0)), eliminar_elemento_lista(Variable,Lista,NLista), primer_elemento(NLista, Z), es_hora(NLista,Z,Y,Matricula,Pista,Hora).
-es_direccion([],Variable,Y,Matricula,Pista,Hora):-write('No indico la direccion correctamente'), nl, Y==2, quinta_entrada_S(X,Y,Matricula,Pista,Hora),!.
-es_direccion([],Variable,Y,Matricula,Pista,Hora):-write('No indico la direccion correctamente'), nl, Y==1, quinta_entrada_S(X,Y,Matricula,Pista,Hora),!.
+es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Variable=='este', Pista=='P2', asignar_pista(Matricula,'P2-1',Hora,Y),!.
+es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Variable=='oeste', Pista=='P2', asignar_pista(Matricula,'P2-2',Hora,Y),!.
+es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Pista=='P1', asignar_pista(Matricula,'P1',Hora,Y),!.
+es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-Pista=='P3', asignar_pista(Matricula,'P3',Hora,Y),!.
+es_direccion(Lista,Variable,Y,Matricula,Pista,Hora):-not(length(Lista,0)), eliminar_elemento_lista(Variable,Lista,NLista), primer_elemento(NLista, Z), es_direccion(NLista,Z,Y,Matricula,Pista,Hora).
+es_direccion([],'',Y,Matricula,Pista,Hora):-write('No indico la direccion correctamente'), nl, quinta_entrada_S(X,Y,Matricula,Pista,Hora),!.
 
 check_direccion(Entrada,Pista):-primer_elemento(Entrada, Z), Z=='este', Pista = 'P2-1',!.
 check_direccion(Entrada,Pista):-primer_elemento(Entrada, Z), Z=='oeste', Pista = 'P2-1',!.
@@ -116,7 +113,7 @@ asignar_pista(Matricula,Pista,Hora,Y):-Y==1, check_P21(Z), Z=='available', not(H
 asignar_pista(Matricula,Pista,Hora,Y):-Y==1, check_P21(Z), Z=='full', not(Hora==''), Pista=='P2-1', vuelosP21(_,Hora), asignar_pista_nueva2(X), asignar_pista(Matricula, X, Hora,Y).
 asignar_pista(Matricula,Pista,Hora,Y):-Y==1, check_P22(Z), Z=='available', not(Hora==''), Pista=='P2-2', vuelosP22(_,Hora), asignar_horaP2_2_2(Hora, Hora, X), asserta(vuelosP22(Matricula,X)), write('Su pista asignada es la P2-2, por favor disminuya su velocidad para que logre aterrizar a las '), write(X), write(' ya que es la siguiente hora habil'), nl, sexta_entrada(L),!.
 asignar_pista(Matricula,Pista,Hora,Y):-Y==1, check_P22(Z), Z=='full', not(Hora==''), Pista=='P2-2', vuelosP22(_,Hora), asignar_pista_nueva3(X), asignar_pista(Matricula, X, Hora,Y).
-asignar_pista(Matricula,Pista,Hora,Y):-Y==1, Pista=='P3', vuelosP3(_,Hora), asignar_horaP3_2(Matricula, Pista, Hora, Hora, X), asserta(vuelosP3(Matricula,X)), write('Su pista asignada es la P3, por favor disminuya su velocidad para que logre aterrizar a las '), write(X), write(' ya que es la siguiente hora habil'), nl, nl,sexta_entrada(L),!.
+asignar_pista(Matricula,Pista,Hora,Y):-Y==1, Pista=='P3', vuelosP3(_,Hora), asignar_horaP3_2(Hora, Hora, X), asserta(vuelosP3(Matricula,X)), write('Su pista asignada es la P3, por favor disminuya su velocidad para que logre aterrizar a las '), write(X), write(' ya que es la siguiente hora habil'), nl, nl,sexta_entrada(L),!.
 
 asignar_pista(Matricula,Pista,Hora,Y):-Y=='E', Pista=='P1',  nl, write('Su pista asignada es la P1, equipo de ayuda enviado'), nl, nl, sexta_entrada(L),!.
 asignar_pista(Matricula,Pista,Hora,Y):-Y=='E', Pista=='P2', nl, write('Su pista asignada es la P2-1, equipo de ayuda enviado'), nl, nl, sexta_entrada(L),!.
@@ -140,17 +137,17 @@ asignar_horaP2_2_2(Hora, HoraC, Hora2):-horas_posibles(ListaHoras), asignar_sigu
 
 asignar_horaP3_2(Hora, HoraC, Hora2):-horas_posibles(ListaHoras), asignar_siguienteH(Hora,ListaHoras,X), not(vuelosP3(_,X)), Hora2 = X,!.
 asignar_horaP3_2(Hora, HoraC, Hora2):-horas_posibles(ListaHoras), asignar_siguienteH(Hora,ListaHoras,X), vuelosP1(_,X), asignar_horaP3_2(X, HoraC, Hora2).
-asignar_horaP3_2(Matricula, Pista, Hora, HoraC, Hora2):-check_P3(Z), Z == 'full', write('La pista P3 esta llena, porfavor espere hasta nuevo aviso'), nl, sexta_entrada(X).
+asignar_horaP3_2(Hora, HoraC, Hora2):-check_P3(Z), Z == 'full', write('La pista P3 esta llena, porfavor espere hasta nuevo aviso'), nl, sexta_entrada(X).
 
 %SE ASIGNA UNA PISTA NUEVA EN EL CASO DE ESTAR LLENA
-asignar_pista_nueva(PistaN):-write('La pista P1 esta llena, porfavor reindique su direccion.'), nl, analizar_entrada(X), check_direccion(X,Y), (Y=='P2-1' ; Y=='P2-2'), PistaN=Y,!.
-asignar_pista_nueva(PistaN):-write('La pista P1 esta llena, porfavor reindique su direccion.'), nl, analizar_entrada(X), check_direccion(X,Y), Y==1, write('No se entendio la direccion dada.'), nl, asignar_pista_nueva(PistaN).
+asignar_pista_nueva(PistaN):-nl, write('La pista P1 esta llena. Me indica la direccion por favor.') , nl, analizar_entrada(X), not(revisar_cierre(X)), check_direccion(X,Y), (Y=='P2-1' ; Y=='P2-2'), PistaN=Y,!.
+asignar_pista_nueva(PistaN):-nl, write('La pista P1 esta llena. Me indica la direccion por favor.'), nl, analizar_entrada(X), not(revisar_cierre(X)), check_direccion(X,Y), Y==1, write('No se entendio la direccion dada.'), nl, asignar_pista_nueva(PistaN).
 
-asignar_pista_nueva2(PistaN):-check_P22(X), X == 'available', write('La pista P2-1 esta llena.'), nl, PistaN = 'P2-2'.
-asignar_pista_nueva2(PistaN):-check_P22(X), X == 'full', write('La pista P2-1 esta llena.'), nl, PistaN = 'P3'.
+asignar_pista_nueva2(PistaN):-check_P22(X), X == 'available', nl, write('La pista P2-1 esta llena.'), nl, nl, PistaN = 'P2-2'.
+asignar_pista_nueva2(PistaN):-check_P22(X), X == 'full', nl, write('La pista P2-1 esta llena y la P2-2 tambien.'), nl, nl, PistaN = 'P3'.
 
-asignar_pista_nueva3(PistaN):-check_P21(X), X == 'available', write('La pista P2-2 esta llena.'), nl, PistaN = 'P2-1'.
-asignar_pista_nueva3(PistaN):-check_P21(X), X == 'full', write('La pista P2-2 esta llena.'), nl,  PistaN = 'P3'.
+asignar_pista_nueva3(PistaN):-check_P21(X), X == 'available', nl, write('La pista P2-2 esta llena.'), nl, nl, PistaN = 'P2-1'.
+asignar_pista_nueva3(PistaN):-check_P21(X), X == 'full', nl, write('La pista P2-2 esta llena y la P2-1 tambien.'), nl,  nl, PistaN = 'P3'.
 
 %VERIFICA SI LA PISTA ESTA LLENA O NO
 check_P1(X):-findall(Y, vuelosP1(_,Y),L), length(L, 24), X='full',!.
@@ -227,6 +224,7 @@ limpiar_pistas():-
 
 % LLENA LA PISTA P1 DE VUELOS PARA PRUEBAS DE CAMBIO DE PISTA
 llenar_pistaP1():-
+        retractall(vuelosP1(_,_)), 
         asserta(vuelosP1(['alpha','bravo','charlie','delta'],'0:00')),
         asserta(vuelosP1(['alpha','bravo','charlie','delta'],'1:00')),
         asserta(vuelosP1(['alpha','bravo','charlie','delta'],'2:00')),
@@ -254,6 +252,7 @@ llenar_pistaP1():-
 
 % LLENA LA PISTA P2-1 DE VUELOS PARA PRUEBAS DE CAMBIO DE PISTA
 llenar_pistaP21():-
+        retractall(vuelosP21(_,_)),
         asserta(vuelosP21(['alpha','bravo','charlie','delta'],'0:00')),
         asserta(vuelosP21(['alpha','bravo','charlie','delta'],'1:00')),
         asserta(vuelosP21(['alpha','bravo','charlie','delta'],'2:00')),
@@ -281,6 +280,7 @@ llenar_pistaP21():-
 
 % LLENA LA PISTA P2-2 DE VUELOS PARA PRUEBAS DE CAMBIO DE PISTA
 llenar_pistaP22():-
+        retractall(vuelosP22(_,_)),
         asserta(vuelosP22(['alpha','bravo','charlie','delta'],'0:00')),
         asserta(vuelosP22(['alpha','bravo','charlie','delta'],'1:00')),
         asserta(vuelosP22(['alpha','bravo','charlie','delta'],'2:00')),
@@ -308,6 +308,7 @@ llenar_pistaP22():-
 
 % LLENA LA PISTA P3 DE VUELOS PARA PRUEBAS DE CAMBIO DE PISTA
 llenar_pistaP3():-
+        retractall(vuelosP3(_,_)),
         asserta(vuelosP3(['alpha','bravo','charlie','delta'],'0:00')),
         asserta(vuelosP3(['alpha','bravo','charlie','delta'],'1:00')),
         asserta(vuelosP3(['alpha','bravo','charlie','delta'],'2:00')),

@@ -131,10 +131,7 @@ resp_hora2():- nl, write('Me indica la hora de llegada por favor.').
 resp_direccion():- nl, write('Me indica la direccion de salida por favor.').
 
 % respuesta direccion llegada
-resp_direccion2():- nl, write('Me indica la direccion de llegada por favor.').
-
-% respuesta aterrizaje
-resp_aterrizaje():- nl, write('Me indica la velocidad, distancia a la pista y direccion por favor.').
+resp_direccion2():- nl, write('Me indica la velocidad, distancia a la pista y direccion de llegada por favor.').
 
 % respuesta de solicitud emergencia
 resp_solicitud_emergencia():- nl, write('Buenas, por favor indique su emergencia.').
