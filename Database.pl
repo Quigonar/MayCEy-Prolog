@@ -32,16 +32,10 @@ pista('P2-1').
 pista('P2-2').
 pista('P3').
 
-condicion_aterrizaje('viento').
-condicion_aterrizaje('peso').
-condicion_aterrizaje('distancia').
-condicion_aterrizaje('velocidad').
-
 saludoB('hola').
 saludoB('buenas').
 saludoB('buenos').
 
-solicitud_emergenciaB('mayday,').
 solicitud_emergenciaB('mayday').
 solicitud_emergenciaB('emergencia').
 solicitud_emergenciaB('7500').
@@ -116,7 +110,7 @@ agradecimientoB('muchas').
 cierre('cerrar').
 
 % respuesta de saludo
-resp_saludo():- nl, write('Hola ¿en que lo puedo ayudar?').
+resp_saludo():- nl, write('Hola, en que lo puedo ayudar?').
 
 % respuesta de solicitud
 resp_solicitud():- nl, write('Por favor identifiquese (minimo matricula y tipo de aeronave).').

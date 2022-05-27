@@ -1,3 +1,5 @@
+:-style_check(-singleton).
+
 % DIFERENTES POSIBLES ESTRUCTURAS PARA LAS ORACIONES INTRODUCIDAS POR EL USUARIO
 oracion(S0,S):-sintagma_nominal(S0,S1),sintagma_verbal(S1,S).
 oracion(S0,S):-adverbio(S0,S1),sintagma_nominal(S1,S2),sintagma_verbal(S2,S).
