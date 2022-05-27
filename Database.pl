@@ -5,6 +5,7 @@
 
 % tipos de emergencias
 emergencia('perdida').
+emergencia('perdi').
 emergencia('parto').
 emergencia('paro').
 emergencia('secuestro').

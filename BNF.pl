@@ -1,44 +1,35 @@
-:- ['Database'].
-
 % DIFERENTES POSIBLES ESTRUCTURAS PARA LAS ORACIONES INTRODUCIDAS POR EL USUARIO
-% oracion(Lista_palabras,[]).
-oracion(S0,S):-sintagma_nominal(S0,S1),sintagma_verbal(S1,S). % oracion formada por un sintagma nominal y un sintagma verbal
-oracion(S0,S):-adverbio(S0,S1),sintagma_nominal(S1,S2),sintagma_verbal(S2,S). % oracion formada por un adverbio, un sintagma nominal y un sintagma verbal
-oracion(S0,S):-sintagma_verbal(S0,S). % oracion formada por un sintagma verbal
-oracion(S0,S):-sintagma_nominal(S0,S). % oracion formada por un sintagma nominal
-oracion(S0,S):-adverbio(S0,S). % oracion formada por un adverbio
+oracion(S0,S):-sintagma_nominal(S0,S1),sintagma_verbal(S1,S).
+oracion(S0,S):-adverbio(S0,S1),sintagma_nominal(S1,S2),sintagma_verbal(S2,S).
+oracion(S0,S):-sintagma_verbal(S0,S).
+oracion(S0,S):-sintagma_nominal(S0,S).
+oracion(S0,S):-adverbio(S0,S).
 oracion(S0,S):-palabras_clave(S0,S).
 
-
 % SINTAGMA NOMINAL DE LA ORACION
-% formado por pronombres, nombres y complementos directos
 sintagma_nominal(S0,S):-pronombre(S0,S).
 sintagma_nominal(S0,S):-complemento_directo(S0,S).
 
-
 % COMPLEMENTO DIRECTO DE LA ORACION
-% combinaciones de nombres, adjetivos, y articulos.
-complemento_directo(S0,S):-sustantivo(S0,S). % solo lo forma un sustantivo
-complemento_directo(S0,S):-adjetivo(S0,S). % solo lo forma un adjetivo
+complemento_directo(S0,S):-sustantivo(S0,S).
+complemento_directo(S0,S):-adjetivo(S0,S).
 complemento_directo(S0,S):-articulo(S0,S).
 complemento_directo(S0,S):-matricula(S0,S1),matricula(S1,S2),matricula(S2,S3),matricula(S3,S).
-complemento_directo(S0,S):-articulo(S0,S1),sustantivo(S1,S). % se forma de un articulo y un sustantivo
-complemento_directo(S0,S):-articulo(S0,S1),sustantivo(S1,S2),adjetivo(S2,S). % se forma de un articulo, un sustantivo y un adjetivo
-complemento_directo(S0,S):-sustantivo(S0,S1),complemento_directo(S1,S). % solo lo forma un sustantivo
-
+complemento_directo(S0,S):-articulo(S0,S1),sustantivo(S1,S).
+complemento_directo(S0,S):-articulo(S0,S1),sustantivo(S1,S2),adjetivo(S2,S).
+complemento_directo(S0,S):-sustantivo(S0,S1),complemento_directo(S1,S).
 
 % SINTAGMA VERBAL
-% formado por pronombres, nombres y complementos directos
-sintagma_verbal(S0,S):-verbo_transitivo(S0,S). % solo lo forma un vervo conjugado
+sintagma_verbal(S0,S):-verbo_transitivo(S0,S).
 sintagma_verbal(S0,S):-verbo_infinitivo(S0,S).
-sintagma_verbal(S0,S):-verbo_transitivo(S0,S1),complemento_directo(S1,S). % lo forma un verbo conjugado y un complemento directo
-sintagma_verbal(S0,S):-verbo_infinitivo(S0,S1),complemento_directo(S1,S). % lo forma un verbo conjugado y un complemento directo
+sintagma_verbal(S0,S):-verbo_transitivo(S0,S1),complemento_directo(S1,S).
+sintagma_verbal(S0,S):-verbo_infinitivo(S0,S1),complemento_directo(S1,S). 
 sintagma_verbal(S0,S):-verbo_transitivo(S0,S1),sintagma_verbal(S1,S).
 sintagma_verbal(S0,S):-verbo_infinitivo(S0,S1),sintagma_verbal(S1,S).
 sintagma_verbal(S0,S):-conectores(S0,S1),sintagma_verbal(S1,S).
 sintagma_verbal(S0,S):-conectores(S0,S1),complemento_directo(S1,S).
-sintagma_verbal(S0,S):-verbo_transitivo(S0,S1),complemento_directo(S1,S2),sintagma_verbal(S2,S). % lo forma un verbo conjugado y un complemento directo
-sintagma_verbal(S0,S):-verbo_infinitivo(S0,S1),complemento_directo(S1,S2),sintagma_verbal(S2,S). % lo forma un verbo conjugado y un complemento directo
+sintagma_verbal(S0,S):-verbo_transitivo(S0,S1),complemento_directo(S1,S2),sintagma_verbal(S2,S). 
+sintagma_verbal(S0,S):-verbo_infinitivo(S0,S1),complemento_directo(S1,S2),sintagma_verbal(S2,S). 
 
 % PALABRAS CLAVES
 palabras_clave(S0,S):-saludo(S0,S).
@@ -77,7 +68,6 @@ articulo(['a','unas'|S],S).
 articulo(['de'|S],S).
 articulo(['medio'|S],S).
 
-
 % POSIBLES NOMBRES QUE PUEDEN SER UTILIZADOS EN UNA ORACION EN EL COMPLEMENTO DIRECCTO Y EL SINTAGMA NOMINAL
 sustantivo(['vuelo'|S],S).
 sustantivo(['pasajero'|S],S).
@@ -111,12 +101,10 @@ sustantivo(['este','a','oeste'|S],S).
 sustantivo(['oeste','a','este'|S],S).
 sustantivo(['matricula'|S],S).
 
-
 % POSIBLES ADJETIVOS UTILIZADOS EN UNA ORACION
 adjetivo(['rapido'|S],S).
 adjetivo(['inmediato'|S],S).
 adjetivo(['cardiaco'|S],S).
-
 
 % POSIBLES VERBOS INFINITIVOS UTILIZADOS EN UNA ORACION
 verbo_infinitivo(['salir'|S],S).
@@ -125,7 +113,6 @@ verbo_infinitivo(['aterrizar'|S],S).
 verbo_infinitivo(['llegar'|S],S).
 verbo_infinitivo(['solicitar'|S],S).
 verbo_infinitivo(['cerrar'|S],S).
-
 
 % POSIBLES VERBOS TRANSITIVOS O CONJUGADOS UTILIZADOS EN UNA ORACION
 verbo_transitivo(['salgo'|S],S).
@@ -144,13 +131,12 @@ verbo_transitivo(['parto'|S],S).
 verbo_transitivo(['paro'|S],S).
 verbo_transitivo(['secuestro'|S],S).
 verbo_transitivo(['es'|S],S).
-
+verbo_transitivo(['perdi'|S],S).
 
 % POSIBLES PRONOMBRES UTILIZADOS COMO SUJETO EN UNA ORACION
 pronombre(['yo'|S],S).
 pronombre(['me'|S],S).
 pronombre(['mi'|S],S).
-
 
 % POSIBLES ADVERBIOS DE NEGACION Y AFIRMACION UTILIZADOS EN UNA ORACION
 adverbio(['si'|S],S).
@@ -222,16 +208,20 @@ conectores(['y'|S],S).
 conectores(['adenas'|S],S).
 conectores(['o'|S],S).
 
-
+% ELIMINA EL CARACTER DADO DEL STRING DADO
 eliminar_caracter_string(S,C,X) :- atom_concat(L,R,S), atom_concat(C,W,R), atom_concat(L,W,X).
 
-% REGLA PARA LEER LE ORACION DEL USUARIO. ESTA ORACION SE GUARDA COMO UNA LISTA DE PALABRAS PARA LUEGO SER EVALUADA
-% POR LA REGLA oracion.
-% oracion(). List contiene lo que el usuario escribe
+% REGLA PARA LEER LA ORACION DEL USUARIO. ESTA ORACION SE GUARDA COMO UNA LISTA DE PALABRAS
 my_read(List):-
-    read_string(user,"\n","\r",_,String), % divide la oracion en palabras
-    downcase_atom(String, Lstring),       % Convierte la oracion en minusculas
-    eliminar_caracter_string(Lstring, '.', Nstring),
-    atom_string(Atom, Nstring),           % Convierte el atomo a un string
-    atomic_list_concat(List,' ',Atom).    % lista de palabras, caracter a concatenar, variable donde se guarda
-    %write(List).
+    read_string(user,"\n","\r",_,String),
+    downcase_atom(String, LString),
+    presents_dot(LString, NString),
+    atom_string(Atom, NString),
+    atomic_list_concat(List,' ',Atom).
+
+presents_dot(String, NString):-
+    not(eliminar_caracter_string(String, '.', LString)), 
+    NString = String.
+
+presents_dot(String, NString):-
+    eliminar_caracter_string(String, '.', NString).
